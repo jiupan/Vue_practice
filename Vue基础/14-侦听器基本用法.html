@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <span>姓</span>
+            <input type="text" v-model='firstname'>
+        </div>
+        <div>
+            <span>名</span>
+            <input type="text" v-model='lastname'>
+        </div>
+        <div>{{fullname}}</div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstname: '麻',
+                lastname: '得雨',
+                fullname: '麻 得雨'
+            },
+            methods: {
+
+            },
+            watch: {
+                firstname: function(val) {
+                    this.fullname = val + ' ' + this.lastname
+                },
+                lastname: function(val) {
+                    this.fullname = this.firstname + ' ' + val
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+            overflow: hidden;
+        }
+        
+        li {
+            float: left;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .img div {
+            display: none;
+        }
+        
+        img {
+            width: 200px;
+        }
+        
+        .active {
+            background-color: pink;
+        }
+        
+        .img .current {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <ul>
+                <li :key='item.id' :class='currentIndex==index?"active":""' v-for='(item,index) in list' v-on:click='handle(index)'>{{item.name}}</li>
+            </ul>
+            <div class="img">
+                <div :key='item.id' :class='currentIndex==index?"current":""' v-for='(item,index) in list'>
+                    <img :src="item.src">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                currentIndex: 0,
+                list: [{
+                    id: 1,
+                    name: 'apple',
+                    src: './img/1.jpg'
+                }, {
+                    id: 2,
+                    name: 'orange',
+                    src: './img/2.jpg'
+                }, {
+                    id: 3,
+                    name: 'banana',
+                    src: './img/3.jpg'
+                }]
+            },
+            methods: {
+                handle: function(index) {
+                    this.currentIndex = index
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

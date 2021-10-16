@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <form action="">
+            <div>
+                <span>姓名：</span>
+                <span><input type="text" v-model='uname'></span>
+            </div>
+            <div>
+                <span>性别</span>
+                <span>
+                    <input type="radio" id="male" value="1" v-model='gender'>
+                    <label for="male">男</label>
+                    <input type="radio" id="female" value="2" v-model='gender'>
+                    <label for="female">女</label>
+                </span>
+            </div>
+            <div>
+                <span>爱好</span>
+                <input type="checkbox" id="ball" value="1" v-model='hobby'>
+                <label for="ball">篮球</label>
+                <input type="checkbox" id="sing" value="2" v-model='hobby'>
+                <label for="ball">唱歌</label>
+                <input type="checkbox" id="code" value="3" v-model='hobby'>
+                <label for="ball">写代码</label>
+            </div>
+            <div>
+                <span>职业：</span>
+                <select v-model='occupation'>
+                    <option value="0">请选择职业...</option>
+                    <option value="1">教师</option>
+                    <option value="2">软件工程师</option>
+                    <option value="3">歌手</option>
+                </select>
+            </div>
+            <div>
+                <span>个人简介</span>
+                <textarea v-model='desc' cols="10" rows="2"></textarea>
+            </div>
+            <div>
+                <input type="submit" value="提交" @click.prevent='handle'>
+            </div>
+        </form>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                uname: '麻得雨',
+                gender: 1,
+                hobby: ['2'],
+                occupation: 2,
+                desc: 'nihao'
+            },
+            methods: {
+                handle: function() {
+                    // console.log(this.hobby.toString());
+                    console.log(this.occupation);
+                    console.log(this.desc);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-for基础用法 -->
+        <div>
+            <ul>
+                <li v-for='item in fruits'>{{item}}</li>
+                <li v-for='(item,index) in fruits'>{{index+'----'+item}}</li>
+                <li v-for='item in myFruits'>
+                    <span>{{item.ename}}</span>
+                    <span>----</span>
+                    <span>{{item.cname}}</span>
+                </li>
+
+                <!-- key对页面没有影响，但会提高Vue性能 -->
+                <li :key='index' v-for='(item,index) in myFruits'>
+                    <span>{{item.ename}}</span>
+                    <span>----</span>
+                    <span>{{item.cname}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                fruits: ['apple', 'banana', 'orange'],
+                myFruits: [{
+                    ename: 'apple',
+                    cname: '苹果'
+                }, {
+                    ename: 'orange',
+                    cname: '橘子'
+                }, {
+                    ename: 'banana',
+                    cname: '香蕉'
+                }]
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

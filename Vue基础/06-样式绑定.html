@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            width: 100px;
+            height: 100px;
+            border: 2px solid pink;
+        }
+        
+        .test {
+            color: red;
+        }
+        
+        .base {
+            font-size: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 对象形式的样式绑定 -->
+        <div v-bind:class='{active:isActive}'>测试文本</div>
+        <button v-on:click='handle'>切换</button>
+        <!-- 数组形式的样式绑定 -->
+        <div v-bind:class='[activeClass]'>测试文本</div>
+        <button v-on:click='handle1'>切换</button>
+
+        <!-- 样式绑定语法细节
+        1.对象绑定喝数组绑定可以结合使用
+        2.class绑定值可以简化操作
+        3.默认class如何处理？ -->
+
+        <!-- 结合使用 -->
+        <div v-bind:class='[activeClass,{test:isTest}]'>测试文本</div>
+        <button v-on:click='handle2'>切换</button>
+
+        <!-- 简化操作 -->
+        <div v-bind:class='arrClass'>测试文本</div>
+        <div v-bind:class='objClass'>测试文本</div>
+
+        <!-- 默认class处理 -->
+        <div class="base" v-bind:class='objClass'>测试文本</div>
+
+
+        <!-- 样式绑定之内联绑定 -->
+        <div v-bind:style='{border:borderStyle,width:widthStyle,height:heightStyle}'>测试文本</div>
+        <button v-on:click='handle3'>切换</button>
+        <div v-bind:style='styleArr'>测试文本</div>
+        <!-- style数组用法 -->
+        <!-- overriding覆盖atyleArr -->
+        <div v-bind:style='[styleArr,overriding]'>测试文本</div>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isActive: true,
+                activeClass: 'active',
+                isTest: true,
+                arrClass: ['active', 'test'],
+                objClass: {
+                    active: true,
+                    test: true
+                },
+                borderStyle: '1px solid pink',
+                widthStyle: '200px',
+                heightStyle: '100px',
+                // 对象用法
+                styleArr: {
+                    border: '1px solid pink',
+                    width: '200px',
+                    height: '100px',
+                },
+                overriding: {
+                    border: '5px solid pink'
+                }
+            },
+            methods: {
+                handle: function() {
+                    this.isActive = !this.isActive
+                },
+                handle1: function() {
+                    this.activeClass = ''
+                },
+                handle2: function() {
+                    this.isTest = !this.isTest
+                },
+                handle3: function() {
+                    this.widthStyle = '100px'
+                    this.styleArr.width = '100px'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

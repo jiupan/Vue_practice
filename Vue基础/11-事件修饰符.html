@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- number自动将字符串转换为数字 -->
+        <input type="text" placeholder="number" v-model.number='sum'>
+        <!-- trim清空表单前后的空格 -->
+        <input type="text" placeholder="trim" v-model.trim='info'>
+        <!-- lazy将input事件改为change事件 即失去焦点后替换值 -->
+        <input type="text" placeholder="lazy" v-model.lazy='msg'>
+        <div>{{msg}}</div>
+        <button @click='handle'>提交</button>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                sum: '',
+                info: '',
+                msg: ''
+            },
+            methods: {
+                handle: function() {
+                    // console.log(this.sum + 13);
+                    console.log(this.info);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

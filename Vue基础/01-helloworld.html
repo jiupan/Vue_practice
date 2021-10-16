@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-cloak 通过样式隐藏内容，替换好值之后再替换显示 -->
+        <div v-cloak>{{msg}}</div>
+        <!-- v-text 直接插入文本内容 -->
+        <div v-text="msg"></div>
+        <!-- v-html 插入html内容 -->
+        <div v-html="msg1"></div>
+        <!-- v-pre 直接插入原始内容 -->
+        <div v-pre>{{msg}}</div>
+        <!-- v-once显示的信息后续不需要修改 -->
+        <div v-once>{{info}}</div>
+        <!-- v-model双向绑定 -->
+        <input type="text" v-model="msg">
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue',
+                msg1: '<h1>Hello Vue</h1>',
+                info: 'nihao'
+            }
+        });
+    </script>
+</body>
+
+</html>
