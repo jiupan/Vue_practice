@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{pmsg}}</div>
+        <!-- :pnum='12' :pboo='true'去掉冒号会变成字符串 -->
+        <menu-item :pstr='pstr' :pnum='12' :pboo='true' :parr='parr' :pobj='pobj'></menu-item>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        Vue.component('menu-item', {
+            props: ['pstr', 'pnum', 'pboo', 'parr', 'pobj'],
+            template: `
+                <div>
+                    <div>{{pstr}}</div>
+                    <div>{{12+pnum}}</div>
+                    <div>{{pboo}}</div>
+                    <ul>
+                        <li :key='index' v-for='(item,index) in parr'>{{item}}</li>
+                    </ul>
+                    <div>
+                        <span>{{pobj.name}}</span>
+                        <span>{{pobj.age}}</span>
+                    </div>
+                </div>
+            `
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                pmsg: '父组件的内容',
+                pstr: 'hello',
+                parr: ['apple', 'banana', 'orange'],
+                pobj: {
+                    name: 'zs',
+                    age: 20
+                }
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

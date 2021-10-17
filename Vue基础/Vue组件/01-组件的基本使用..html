@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button-counter></button-counter>
+        <hello-world></hello-world>
+        <zhang-san></zhang-san>
+        <li-si></li-si>
+        <wang-wu></wang-wu>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        // 组件注册
+        //注意事项：1.data必须是一个函数
+        //         2.组件模板内容必须是单个根元素 
+        //         3.全局组件不可调用局部组件
+        // Vue.component('button-counter', {
+        //     data: function() {
+        //         return {
+        //             count: 0
+        //         }
+        //     },
+        //     template: '<button @click="handle">点击了{{count}}次</button>',
+        //     methods: {
+        //         handle: function() {
+        //             this.count++
+        //         }
+        //     }
+        // })
+        //可通过模板字符串``增加可读性
+        Vue.component('button-counter', {
+            data: function() {
+                return {
+                    count: 0
+                }
+            },
+            template: `
+            <div>
+                <button @click="handle">点击了{{count}}次</button>
+                <HelloWorld></HelloWorld>    
+            </div>
+            `,
+            methods: {
+                handle: function() {
+                    this.count++
+                }
+            }
+        });
+        //驼峰式名命组件，只能在字符串模板中使用
+        //在普通的标签模板中，必须使用短横线方式 HelloWorld => hello-world
+        Vue.component('HelloWorld', {
+            data: function() {
+                return {
+                    msg: 'HELLO WORLD'
+                }
+            },
+            template: '<div>{{msg}}</div>'
+        })
+
+        //局部组件
+        var ZhangSan = {
+            data: function() {
+                return {
+                    msg: 'hello张三'
+                }
+            },
+            template: '<div>{{msg}}</div>'
+        }
+        var LiSi = {
+            data: function() {
+                return {
+                    msg: 'hello李四'
+                }
+            },
+            template: '<div>{{msg}}</div>'
+        }
+        var WangWu = {
+            data: function() {
+                return {
+                    msg: 'hello王五'
+                }
+            },
+            template: '<div>{{msg}}</div>'
+        }
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+
+            },
+            //局部组件注册
+            components: {
+                'zhang-san': ZhangSan,
+                'li-si': LiSi,
+                'wang-wu': WangWu
+            }
+        });
+    </script>
+</body>
+
+</html>
