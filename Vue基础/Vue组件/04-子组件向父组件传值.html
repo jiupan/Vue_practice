@@ -15,7 +15,7 @@
     <div id="app">
         <div :style='{fontSize:fontSize+"px"}'>{{pmsg}}</div>
         <!-- :pnum='12' :pboo='true'去掉冒号会变成字符串 -->
-        <menu-item :parr='parr' @enlarge-text='handle'></menu-item>
+        <menu-item :parr='parr' @enlarge-text='handle($event)'></menu-item>
     </div>
 
     <script src="js/vue.js"></script>
@@ -28,7 +28,8 @@
                         <li :key='index' v-for='(item,index) in parr'>{{item}}</li>
                     </ul>
                     <button @click='parr.push("lemon")'>添加</button>
-                    <button @click='$emit("enlarge-text")'>扩大父组件中字体大小</button>
+                    <button @click='$emit("enlarge-text",5)'>扩大父组件中字体大小</button>
+                    <button @click='$emit("enlarge-text",10)'>扩大父组件中字体大小</button>
                 </div>
             `
         })
@@ -41,8 +42,8 @@
                 fontSize: 10
             },
             methods: {
-                handle: function() {
-                    this.fontSize += 5
+                handle: function(val) {
+                    this.fontSize += val
                 }
             }
         });
