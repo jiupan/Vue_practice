@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+        
+        input {
+            width: 20px;
+        }
+        
+        .del {
+            margin-right: 4px;
+        }
+        
+        .item {
+            overflow: hidden;
+            border-bottom: 1px solid orange;
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+        }
+        
+        .item img {
+            width: 25px;
+            margin-right: 8px;
+            display: block;
+            float: left;
+        }
+        
+        .header {
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid pink;
+        }
+        
+        .name {
+            margin-right: 20px;
+        }
+        
+        .total {
+            margin-top: 10px;
+        }
+        
+        .del {
+            float: right;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .change {
+            float: right;
+        }
+        
+        .container {
+            width: 250px;
+        }
+        
+        .name {
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <my-cart></my-cart>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        //注册组件
+        var CartTitle = {
+            props: ['uname'],
+            template: `
+                <div class="header">{{uname}}的商品</div>
+            `
+        }
+        var CartList = {
+            props: ['list'],
+            template: `
+                <div class="lists">
+                    <div :key='item.id' v-for='item in list' class="item">
+                        <img :src="item.img" alt="">
+                        <div class="name">{{item.name}}</div>
+                        <div class="change">
+                            <a href="">-</a>
+                            <input type="text" name="" id="" :value="item.num">
+                            <a href="">+</a>
+                            <div class="del" @click='del(item.id)'>删除</div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            methods: {
+                del: function(id) {
+                    //把id传给父组件
+                    console.log(id);
+                    this.$emit('cart-del', id)
+                }
+            }
+        }
+        var CartTotal = {
+            props: ['list'],
+            template: `
+                <div class="total">
+                    <span>总价：{{total}}</span>
+                    <button>结算</button>
+                </div>
+            `,
+            computed: {
+                total: function() {
+                    //计算商品总价
+                    var t = 0;
+                    this.list.forEach(item => {
+                        t += (item.price * item.num);
+                    });
+                    return t;
+                    // return this.list[0].price
+                }
+            }
+        }
+        Vue.component('my-cart', {
+            data: function() {
+                return {
+                    uname: '张三',
+                    list: [{
+                        id: 1,
+                        name: 'TCL彩电',
+                        price: 1000,
+                        num: 1,
+                        img: './img/1.png'
+                    }, {
+                        id: 2,
+                        name: 'adw彩电',
+                        price: 100,
+                        num: 1,
+                        img: './img/1.png'
+                    }, {
+                        id: 3,
+                        name: 'ado彩电',
+                        price: 900,
+                        num: 1,
+                        img: './img/1.png'
+                    }, {
+                        id: 4,
+                        name: 'DHD彩电',
+                        price: 1500,
+                        num: 1,
+                        img: './img/1.png'
+                    }]
+                }
+            },
+            template: `
+            <div class="cart">
+                <cart-title :uname='uname'></cart-title>   
+                <cart-list :list='list' @cart-del='delCart($event)'></cart-list>   
+                <cart-total :list='list'></cart-total>   
+            </div>
+            `,
+            components: {
+                'cart-title': CartTitle,
+                'cart-list': CartList,
+                'cart-total': CartTotal,
+            },
+            methods: {
+                delCart: function(id) {
+                    //根据ID删除list中对应的数据
+                    var index = this.list.findIndex(item => {
+                        return item.id == id;
+                    });
+                    this.list.splice(index, 1);
+                }
+            }
+        })
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>
