@@ -91,19 +91,42 @@
                         <img :src="item.img" alt="">
                         <div class="name">{{item.name}}</div>
                         <div class="change">
-                            <a href="">-</a>
-                            <input type="text" name="" id="" :value="item.num">
-                            <a href="">+</a>
+                            <a href="" @click.prevent='sub(item.id)'>-</a>
+                            <input type="text" :value="item.num" @blur='changeNum(item.id,$event)'>
+                            <a href="" @click.prevent='add(item.id)'>+</a>
                             <div class="del" @click='del(item.id)'>删除</div>
                         </div>
                     </div>
                 </div>
             `,
             methods: {
+                //减号操作
+                sub: function(id) {
+                    this.$emit('change-num', {
+                        id: id,
+                        type: 'sub'
+                    })
+                },
+                //加号操作
+                add: function(id) {
+                    this.$emit('change-num', {
+                        id: id,
+                        type: 'add'
+                    })
+                },
+                //删除操作
                 del: function(id) {
                     //把id传给父组件
-                    console.log(id);
+                    // console.log(id);
                     this.$emit('cart-del', id)
+                },
+                changeNum: function(id, event) {
+                    // console.log(id, event.target.value);
+                    this.$emit('change-num', {
+                        id: id,
+                        type: 'change',
+                        num: event.target.value
+                    })
                 }
             }
         }
@@ -161,7 +184,7 @@
             template: `
             <div class="cart">
                 <cart-title :uname='uname'></cart-title>   
-                <cart-list :list='list' @cart-del='delCart($event)'></cart-list>   
+                <cart-list :list='list' @change-num='changeNum($event)' @cart-del='delCart($event)'></cart-list>   
                 <cart-total :list='list'></cart-total>   
             </div>
             `,
@@ -177,6 +200,33 @@
                         return item.id == id;
                     });
                     this.list.splice(index, 1);
+                },
+                changeNum: function(val) {
+                    // console.log(val);
+                    //分为三种情况进行处理，加号、减号、变更
+                    if (val.type == 'change') {
+                        this.list.some(item => {
+                            if (item.id == val.id) {
+                                item.num = val.num;
+                                return true;
+                            }
+                        })
+                    } else if (val.type == 'sub') {
+                        this.list.some(item => {
+                            if (item.id == val.id) {
+                                item.num--;
+                                return true;
+                            }
+                        })
+                    } else {
+                        this.list.some(item => {
+                            if (item.id == val.id) {
+                                item.num++;
+                                return true;
+                            }
+                        })
+                    }
+
                 }
             }
         })
